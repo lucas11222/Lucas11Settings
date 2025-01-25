@@ -2,7 +2,7 @@
 	"geode": "4.2.0",
 	"gd": {
 		"win": "2.2074",
-		"android": "2.2074",
+ 		"android": "2.2074",
 		"mac": "2.2074",
 		"ios": "2.2074"
 	},
@@ -11,6 +11,11 @@
 	"version": "v1.0.0",
 	"developer": "Lucas11",
 	"description": "This is for learning and adding features that i wanna in gd.",
+	"tags": ["content", "offline"],
+	"dependencies": {
+  		"gdutilsdevs.gdutils": ">=1.4.0-beta.6",
+		"geode.custom-keybinds": ">=v1.10.2"
+ 	},
 	"settings": {
 		"title-ui": {
 			"type": "title",
@@ -20,8 +25,18 @@
 			"type": "bool",
 			"name": "Enable Streaming UI",
 			"default": false
+		},
+		"rgb-setting-example": {
+    		"type": "rgb",
+    		"name": "UI Color",
+    		"default": "#FFFFFF"
 		}
 
+	},
+	"resources": {
+		"files": [
+			"resources/*.ttf"
+		]
 	}
 
 		
