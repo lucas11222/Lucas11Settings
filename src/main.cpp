@@ -1,33 +1,90 @@
 /**
- * Include the Geode headers.
+ * Credits to Prevter for using this for the base.
  */
+
+/**
+ * Custom Keybinds mod provides a way to bind custom key combinations to actions in the game.
+ * We will use it to bind open/close button for out ImGui interface.
+ */
+#include <imgui-cocos.hpp>
+#include <geode.custom-keybinds/include/Keybinds.hpp>
 #include <Geode/Geode.hpp>
 #include <Geode/ui/GeodeUI.hpp>
 #include <gdutilsdevs.gdutils/include/RateEvent.hpp>
 #include <gdutilsdevs.gdutils/include/Types.hpp>
-#include <imgui-cocos.hpp>
-#include <geode.custom-keybinds/include/Keybinds.hpp>
-/**
- * Brings cocos2d and all Geode namespaces to the current scope.
- */
 using namespace geode::prelude;
+void setup() {
+    /**
+     * This function should be used for things like setting up ImGui style, loading fonts, etc.
+     * For this example, we will set up a custom font (which is stored in our mod resources).
+     */
+
+    auto& io = ImGui::GetIO();
+    auto fontPath = geode::Mod::get()->getResourcesDir() / "Roboto-Regular.ttf";
+    io.Fonts->AddFontFromFileTTF(fontPath.string().c_str(), 20.5f);
+}
+
+void draw() {
+    /**
+     * This function should be used for drawing ImGui widgets.
+     * You can put any ImGui code here, and it will be rendered on the screen.
+     */
+	bool enableui = false
+    ImGui::Begin("Lucas11Settings");
+    ImGui::Text("Hello world.");
+    ImGui::Text("Read the README for using this mod.");
+    if (ImGui::Button("Close")) {
+        /* This will hide our ImGui interface. */
+        ImGuiCocos::get().toggle();
+    }
+	if (ImGui::Button("Open Geode settings.")) {
+        /* This will hide our ImGui interface. */
+        ImGuiCocos::get().toggle();
+		geode::openSettingsPopup(Mod::get());
+    }
+	if (enableui = false) {
+		ImGui::Button("Open Stremer UI");
+		ImGui::End();
+	}
+	else {
+		ImGui::Button("Close Stremer UI");
+		ImGui::End();
+		ImGui::Begin("Stremer UI");
+		ImGui::Text("0%|100%");
+		ImGui::End();
+	}
+	
+}
+
+$on_mod(Loaded) {
+    ImGuiCocos::get()
+        .setup(setup).draw(draw)
+        .setVisible(false); /* We don't want our ImGui interface to be visible by default. */
+}
 
 /**
- * `$modify` lets you extend and modify GD's classes.
- * To hook a function in Geode, simply $modify the class
- * and write a new function definition with the signature of
- * the function you want to hook.
- *
- * Here we use the overloaded `$modify` macro to set our own class name,
- * so that we can use it for button callbacks.
- *
- * Notice the header being included, you *must* include the header for
- * the class you are modifying, or you will get a compile error.
- *
- * Another way you could do this is like this:
- *
- * struct MyMenuLayer : Modify<MyMenuLayer, MenuLayer> {};
+ * $execute is a special macro that allows us to execute code when our mod first loads.
+ * Then we will use Custom Keybinds API to register a new keybind for opening/closing our ImGui interface.
  */
+$execute {
+    /**
+     * Bringing some namespaces into scope for easier access to classes and functions.
+     */
+    using namespace geode::prelude;
+    using namespace keybinds;
+
+    BindManager::get()->registerBindable({
+        "open-imgui"_spr, /* Keybind ID */
+        "Open Interface", /* Keybind name */
+        "Open or close the ImGui interface.", /* Keybind description */
+        { Keybind::create(cocos2d::enumKeyCodes::KEY_L) },
+        "Lucas11Settings" /* Category name (usually the name of your mod) */
+    });
+    new EventListener([=](InvokeBindEvent* event) {
+        if (event->isDown()) ImGuiCocos::get().toggle();
+        return ListenerResult::Propagate;
+    }, InvokeBindFilter(nullptr, "open-imgui"_spr));
+}
 #include <Geode/modify/MenuLayer.hpp>
 class $modify(MyMenuLayer, MenuLayer) {
 	/**
@@ -42,16 +99,10 @@ class $modify(MyMenuLayer, MenuLayer) {
 		 * We call the original init function so that the
 		 * original class is properly initialized.
 		 */
+		if (!MenuLayer::init()) {
+			return false;
+		}
 
-		
-        if (!MenuLayer::init()) return false;
-          static bool initialized = false;
-        if (!initialized) {
-              ImGuiCocos::get()
-                  .setup(setup).draw(draw)
-                  .setVisible(false);
-              initialized = true;
-        }  	
 		/**
 		 * You can use methods from the `geode::log` namespace to log messages to the console,
 		 * being useful for debugging and such. See this page for more info about logging:
@@ -92,80 +143,19 @@ class $modify(MyMenuLayer, MenuLayer) {
 		 * https://docs.geode-sdk.org/tutorials/layouts
 		*/
 		menu->updateLayout();
+
 		/**
 		 * We return `true` to indicate that the class was properly initialized.
 		 */
-		auto& io = ImGui::GetIO();
-    	auto fontPath = geode::Mod::get()->getResourcesDir() / "Roboto-Regular.ttf";
-    	io.Fonts->AddFontFromFileTTF(fontPath.string().c_str(), 16.0f);
 		return true;
 	}
-	void draw() {
-    /**
-     * This function should be used for drawing ImGui widgets.
-     * You can put any ImGui code here, and it will be rendered on the screen.
-     */
-    	ImGui::Begin("Hello, ImGui!");
 
-    	ImGui::Text("This is a simple ImGui window.");
-    	ImGui::Text("You can put any ImGui widgets here.");
-
-    	if (ImGui::Button("Close")) {
-        	/* This will hide our ImGui interface. */
-        	ImGuiCocos::get().toggle();
-    }
-
-    ImGui::End();
-	}	
 	/**
 	 * This is the callback function for the button we created earlier.
 	 * The signature for button callbacks must always be the same,
 	 * return type `void` and taking a `CCObject*`.
 	*/
-	$execute {
-    /**
-     * Bringing some namespaces into scope for easier access to classes and functions.
-     */
-    	using namespace geode::prelude;
-    	using namespace keybinds;
-
-    	BindManager::get()->registerBindable({
-        	"open-menu-settings"_spr, /* Keybind ID */
-        	"Open Interface", /* Keybind name */
-        	"Open or close the ImGui interface.", /* Keybind description */
-        	{ Keybind::create(cocos2d::enumKeyCodes::KEY_S, Modifier::Alt) },
-        	"Lucas11Settings" /* Category name (usually the name of your mod) */
-    	});
-    	new EventListener([=](InvokeBindEvent* event) {
-        	if (event->isDown()) ImGuiCocos::get().toggle();
-        	return ListenerResult::Propagate;
-    	}, InvokeBindFilter(nullptr, "open-menu-settings"_spr));
-	}
 	void onMyButton(CCObject*) {
-		geode::openSettingsPopup(Mod::get());
-		if (!Mod::get()->setSavedValue("shown-upload-guidelines", true)) {
-    		FLAlertLayer::create(
-        	"Lucas11",
-        	"Hello! Please read the README or the description of the mod.",
-        	"OK"
-			
-    	)->show();
-		EventData data = {
-			true,
-			2,
-			6,
-			1,
-    		EventType::smallChest, // type of notification
-    		"hello world", // notification title
-    		"GJ_editBtn_001.png", // sprite (MUST BE VALID OR WILL CRASH!)
-    		"hi by mod", // level name
-    		"by lucas11", // level creator
-			0,
-			false,	
-			false,	
-		};
-		GDUtils::Events::RateEvent::emit(data);
-}
-
+		ImGuiCocos::get().toggle();
 	}
 };
