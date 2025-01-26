@@ -1,5 +1,6 @@
 /**
  * Credits to Prevter for using this for the base.
+ * Sorry for the bad code :(
  */
 
 /**
@@ -12,6 +13,7 @@
 #include <Geode/ui/GeodeUI.hpp>
 #include <gdutilsdevs.gdutils/include/RateEvent.hpp>
 #include <gdutilsdevs.gdutils/include/Types.hpp>
+#include <Geode/modify/PlayLayer.hpp>
 using namespace geode::prelude;
 void setup() {
     /**
@@ -20,8 +22,10 @@ void setup() {
      */
 
     auto& io = ImGui::GetIO();
-    auto fontPath = geode::Mod::get()->getResourcesDir() / "Roboto-Regular.ttf";
+    auto fontPath = geode::Mod::get()->getResourcesDir() / "ProggyClean.ttf";
+	auto fontPath2 = geode::Mod::get()->getResourcesDir() / "Roboto-Regular.ttf";
     io.Fonts->AddFontFromFileTTF(fontPath.string().c_str(), 20.5f);
+	// auto font2 = io.Fonts->AddFontFromFileTTF(fontPath2.string().c_str(), 25.0f);
 }
 
 void draw() {
@@ -29,7 +33,7 @@ void draw() {
      * This function should be used for drawing ImGui widgets.
      * You can put any ImGui code here, and it will be rendered on the screen.
      */
-	bool enableui = false
+	// extern auto font2;
     ImGui::Begin("Lucas11Settings");
     ImGui::Text("Hello world.");
     ImGui::Text("Read the README for using this mod.");
@@ -42,17 +46,16 @@ void draw() {
         ImGuiCocos::get().toggle();
 		geode::openSettingsPopup(Mod::get());
     }
-	if (enableui = false) {
-		ImGui::Button("Open Stremer UI");
+	ImGui::End();
+	//ImGui::PushFont(font2);
+	if (PlayLayer::get()) {
+		auto percent = PlayLayer::get()->getCurrentPercent();
+     	ImGui::Begin("Stremer UI");
+		ImGui::Text(std::to_string(percent).c_str());
 		ImGui::End();
 	}
-	else {
-		ImGui::Button("Close Stremer UI");
-		ImGui::End();
-		ImGui::Begin("Stremer UI");
-		ImGui::Text("0%|100%");
-		ImGui::End();
-	}
+
+	
 	
 }
 
@@ -81,7 +84,18 @@ $execute {
         "Lucas11Settings" /* Category name (usually the name of your mod) */
     });
     new EventListener([=](InvokeBindEvent* event) {
-        if (event->isDown()) ImGuiCocos::get().toggle();
+        if (event->isDown()) {
+			ImGuiCocos::get().toggle();
+			if (!Mod::get()->setSavedValue("shown-upload-guidelines", true)) {
+    			FLAlertLayer::create(
+        			"Lucas11",
+        			"Hello! Please read the description of the mod.",
+        			"OK!"
+    			)->show();
+			
+		geode::openInfoPopup(Mod::get());
+	}
+		}
         return ListenerResult::Propagate;
     }, InvokeBindFilter(nullptr, "open-imgui"_spr));
 }
@@ -156,6 +170,26 @@ class $modify(MyMenuLayer, MenuLayer) {
 	 * return type `void` and taking a `CCObject*`.
 	*/
 	void onMyButton(CCObject*) {
+		if (!Mod::get()->setSavedValue("shown-upload-guidelines", true)) {
+    		FLAlertLayer::create(
+        		"Lucas11",
+        		"Hello! Please read the description of the mod.",
+        		"OK!"
+    	)->show();
+		geode::openInfoPopup(Mod::get());
+	}
 		ImGuiCocos::get().toggle();
 	}
 };
+class $modify(PlayLayer) {
+	bool init() {
+		if (!PlayLayer::init()) {
+			return false;
+		}
+		auto label = CCLabelBMFont::create("Hi mom!", "ProggyClean.ttf");
+		// Set the position of the label to be at the coordinates 100, 50 (in units, not pixels)
+		this->addChildAtPosition(label, geode::Anchor::Center);
+		return true;
+	}
+
+}

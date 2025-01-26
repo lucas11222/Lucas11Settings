@@ -14,8 +14,13 @@
 	"tags": ["content", "offline"],
 	"dependencies": {
   		"gdutilsdevs.gdutils": ">=1.4.0-beta.6",
-		"geode.custom-keybinds": ">=v1.10.2"
+		"geode.custom-keybinds": ">=v1.10.2",
+		"eclipse.eclipse-menu": {
+			"version": "1.0.0-beta.4",
+			"importance": "suggested"
+	    }
  	},
+	
 	"settings": {
 		"title-ui": {
 			"type": "title",
