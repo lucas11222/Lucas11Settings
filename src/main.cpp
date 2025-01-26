@@ -14,6 +14,7 @@
 #include <gdutilsdevs.gdutils/include/RateEvent.hpp>
 #include <gdutilsdevs.gdutils/include/Types.hpp>
 #include <Geode/modify/PlayLayer.hpp>
+#include <Geode/modify/LevelSearchLayer.hpp>
 using namespace geode::prelude;
 void setup() {
     /**
@@ -50,10 +51,16 @@ void draw() {
 	//ImGui::PushFont(font2);
 	if (PlayLayer::get()) {
 		auto percent = PlayLayer::get()->getCurrentPercent();
-     	ImGui::Begin("Stremer UI");
-		ImGui::Text(std::to_string(percent).c_str());
+     	ImGui::Begin("Info");
+		ImGui::Text("Percent:" ,std::to_string(percent).c_str());
+		ImGui::Text("gonna add more (i suck at adding things)");
 		ImGui::End();
 	}
+	//if (LevelSearchLayer::) {
+		ImGui::Begin("Song Request time!");
+		ImGui::Text("Lucas11 - ");
+		ImGui::End();
+	//}
 
 	
 	
@@ -179,17 +186,20 @@ class $modify(MyMenuLayer, MenuLayer) {
 		geode::openInfoPopup(Mod::get());
 	}
 		ImGuiCocos::get().toggle();
+		EventData data = {
+			true,
+			2,
+			6,
+			1,
+    		EventType::smallChest, // type of notification
+    		"hello world", // notification title
+    		"GJ_editBtn_001.png", // sprite (MUST BE VALID OR WILL CRASH!)
+    		"hi by mod", // level name
+    		"by lucas11", // level creator
+			0,
+			false,	
+			false,	
+		};
+		GDUtils::Events::RateEvent::emit(data);
 	}
 };
-class $modify(PlayLayer) {
-	bool init() {
-		if (!PlayLayer::init()) {
-			return false;
-		}
-		auto label = CCLabelBMFont::create("Hi mom!", "ProggyClean.ttf");
-		// Set the position of the label to be at the coordinates 100, 50 (in units, not pixels)
-		this->addChildAtPosition(label, geode::Anchor::Center);
-		return true;
-	}
-
-}
