@@ -120,7 +120,7 @@ $execute {
     new EventListener([=](InvokeBindEvent* event) {
         if (event->isDown()) {
 			auto enabled = Mod::get()->getSettingValue<bool>("enable-eclipse");
-			if (enabled = true) {
+			if (enabled == true) {
 				ImGuiCocos::get().toggle();
 			}
 			if (!Mod::get()->setSavedValue("shown-upload-guidelines", true)) {
@@ -235,7 +235,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		geode::openInfoPopup(Mod::get());
 	}
 		auto enabled = Mod::get()->getSettingValue<bool>("enable-eclipse");
-		if (enabled = true) {
+		if (enabled == true) {
 			ImGuiCocos::get().toggle();
 		}
 	}
