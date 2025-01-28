@@ -8,7 +8,7 @@
 	},
 	"id": "lucas11.lucas11settings",
 	"name": "Lucas11Settings",
-	"version": "v1.0.0-alpha.1",
+	"version": "v1.0.0-alpha.1.1",
 	"developer": "Lucas11",
 	"description": "This is for learning and adding features that i wanna in gd.",
 	"tags": ["content", "offline"],
@@ -22,15 +22,6 @@
  	},
 	
 	"settings": {
-		"title-ui": {
-			"type": "title",
-			"name": "UI Settings"
-		},
-		"enable-eclipse": {
-			"type": "bool",
-			"name": "Disable ui.",
-			"default": false
-		}
 
 	},
 	"resources": {

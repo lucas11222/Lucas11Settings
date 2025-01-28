@@ -11,4 +11,8 @@ $execute {
     menuTab.addButton("Open Geode settings.", []() {
         geode::openSettingsPopup(Mod::get());
     });
+    menuTab.addToggle("readme-check", "README", {
+        
+    });
+    menuTab.addLabel
 }
