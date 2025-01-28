@@ -22,7 +22,15 @@
  	},
 	
 	"settings": {
-
+			"title-ui": {
+				"type": "title",
+				"name": "UI Settings"
+			},
+			"enable-eclipse": {
+				"type": "bool",
+				"name": "Disable ui.",
+				"default": false
+			}
 	},
 	"resources": {
 		"files": [
