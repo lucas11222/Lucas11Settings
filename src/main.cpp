@@ -38,14 +38,14 @@ void draw() {
      * You can put any ImGui code here, and it will be rendered on the screen.
      */
 
-    ImGui::Begin("%s","Lucas11Settings");
+    ImGui::Begin("Lucas11Settings");
     ImGui::Text("%s","Hello world.");
     ImGui::Text("%s","Read the README for using this mod.");
-    if (ImGui::Button("%s","Close")) {
+    if (ImGui::Button("Close")) {
         /* This will hide our ImGui interface. */
         ImGuiCocos::get().toggle();
     }
-	if (ImGui::Button("%s","Open Geode settings.")) {
+	if (ImGui::Button("Open Geode settings.")) {
         /* This will hide our ImGui interface. */
         ImGuiCocos::get().toggle();
 		geode::openSettingsPopup(Mod::get());
@@ -53,7 +53,7 @@ void draw() {
 	ImGui::End();
 	//ImGui::PushFont(font2);
 	if (PlayLayer::get()) {	
-     	ImGui::Begin("%s","Info");
+     	ImGui::Begin("Info");
 		ImGui::Text("%s","Percent");
 		ImGui::Text("%s","-------");
 		if (PlayLayer::PlayLayer::get()->m_hasCompletedLevel == true) {
@@ -74,7 +74,7 @@ void draw() {
 		ImGui::Text("%s","gonna add more (i suck at adding things)");
 		ImGui::End();
 	}
-	ImGui::Begin("%s","Song Request time! (dosent work)");
+	ImGui::Begin("Song Request time! (dosent work)");
 	ImGui::End();
 	ImGui::Begin("%s","Credits");
 	ImGui::Text("%s","Created by Lucas11");
