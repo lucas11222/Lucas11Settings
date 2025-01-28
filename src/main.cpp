@@ -76,7 +76,7 @@ void draw() {
 	}
 	ImGui::Begin("Song Request time! (dosent work)");
 	ImGui::End();
-	ImGui::Begin("%s","Credits");
+	ImGui::Begin("Credits");
 	ImGui::Text("%s","Created by Lucas11");
 	ImGui::Text("%s","Twitch code by Alphalaneous.");
 	ImGui::Text("%s","Thank to all the persons that help me at #help.");
