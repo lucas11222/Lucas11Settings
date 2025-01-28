@@ -38,14 +38,14 @@ void draw() {
      * You can put any ImGui code here, and it will be rendered on the screen.
      */
 
-    ImGui::Begin("Lucas11Settings");
-    ImGui::Text("Hello world.");
-    ImGui::Text("Read the README for using this mod.");
-    if (ImGui::Button("Close")) {
+    ImGui::Begin("%s","Lucas11Settings");
+    ImGui::Text("%s","Hello world.");
+    ImGui::Text("%s","Read the README for using this mod.");
+    if (ImGui::Button("%s","Close")) {
         /* This will hide our ImGui interface. */
         ImGuiCocos::get().toggle();
     }
-	if (ImGui::Button("Open Geode settings.")) {
+	if (ImGui::Button("%s","Open Geode settings.")) {
         /* This will hide our ImGui interface. */
         ImGuiCocos::get().toggle();
 		geode::openSettingsPopup(Mod::get());
@@ -53,34 +53,34 @@ void draw() {
 	ImGui::End();
 	//ImGui::PushFont(font2);
 	if (PlayLayer::get()) {	
-     	ImGui::Begin("Info");
-		ImGui::Text("Percent");
-		ImGui::Text("-------");
+     	ImGui::Begin("%s","Info");
+		ImGui::Text("%s","Percent");
+		ImGui::Text("%s","-------");
 		if (PlayLayer::PlayLayer::get()->m_hasCompletedLevel == true) {
-			ImGui::Text("GG! 100%");
+			ImGui::Text("%s","GG! 100%");
 		}
 		else {
-			ImGui::Text(std::to_string(PlayLayer::get()->getCurrentPercent()).c_str());
+			ImGui::Text("%s",std::to_string(PlayLayer::get()->getCurrentPercent()).c_str());
 		}
-		ImGui::Text("ID Level");
-		ImGui::Text("--------");
-		ImGui::Text(std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str());
-		ImGui::Text("Level Name");
-		ImGui::Text("----------");
-		ImGui::Text(GJBaseGameLayer::get()->m_level->m_levelName.c_str());
-		ImGui::Text("Attempts");
-		ImGui::Text("--------");
-		ImGui::Text(std::to_string(GJBaseGameLayer::get()->m_level->m_attempts).c_str());
-		ImGui::Text("gonna add more (i suck at adding things)");
+		ImGui::Text("%s","ID Level");
+		ImGui::Text("%s","--------");
+		ImGui::Text("%s",std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str());
+		ImGui::Text("%s","Level Name");
+		ImGui::Text("%s","----------");
+		ImGui::Text("%s",GJBaseGameLayer::get()->m_level->m_levelName.c_str());
+		ImGui::Text("%s","Attempts");
+		ImGui::Text("%s","--------");
+		ImGui::Text("%s",std::to_string(GJBaseGameLayer::get()->m_level->m_attempts).c_str());
+		ImGui::Text("%s","gonna add more (i suck at adding things)");
 		ImGui::End();
 	}
-	ImGui::Begin("Song Request time! (dosent work)");
+	ImGui::Begin("%s","Song Request time! (dosent work)");
 	ImGui::End();
-	ImGui::Begin("Credits");
-	ImGui::Text("Created by Lucas11");
-	ImGui::Text("Twitch code by Alphalaneous.");
-	ImGui::Text("Thank to all the persons that help me at #help.");
-	ImGui::Text("And you too for using this mod!");
+	ImGui::Begin("%s","Credits");
+	ImGui::Text("%s","Created by Lucas11");
+	ImGui::Text("%s","Twitch code by Alphalaneous.");
+	ImGui::Text("%s","Thank to all the persons that help me at #help.");
+	ImGui::Text("%s","And you too for using this mod!");
 	ImGui::End();
 
 	
