@@ -15,13 +15,16 @@
 #include <gdutilsdevs.gdutils/include/Types.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/LevelSearchLayer.hpp>
+#include <eclipse.eclipse-menu/include/eclipse.hpp>
+#include <eclipse.eclipse-menu/include/components.hpp>
+#include <Geode/binding/GameLevelManager.hpp>
 using namespace geode::prelude;
 void setup() {
     /**
      * This function should be used for things like setting up ImGui style, loading fonts, etc.
      * For this example, we will set up a custom font (which is stored in our mod resources).
      */
-
+	
     auto& io = ImGui::GetIO();
     auto fontPath = geode::Mod::get()->getResourcesDir() / "ProggyClean.ttf";
 	auto fontPath2 = geode::Mod::get()->getResourcesDir() / "Roboto-Regular.ttf";
@@ -34,7 +37,7 @@ void draw() {
      * This function should be used for drawing ImGui widgets.
      * You can put any ImGui code here, and it will be rendered on the screen.
      */
-	// extern auto font2;
+
     ImGui::Begin("Lucas11Settings");
     ImGui::Text("Hello world.");
     ImGui::Text("Read the README for using this mod.");
@@ -49,18 +52,36 @@ void draw() {
     }
 	ImGui::End();
 	//ImGui::PushFont(font2);
-	if (PlayLayer::get()) {
-		auto percent = PlayLayer::get()->getCurrentPercent();
+	if (PlayLayer::get()) {	
      	ImGui::Begin("Info");
-		ImGui::Text("Percent:" ,std::to_string(percent).c_str());
+		ImGui::Text("Percent");
+		ImGui::Text("-------");
+		if (PlayLayer::PlayLayer::get()->m_hasCompletedLevel == true) {
+			ImGui::Text("GG! 100%");
+		}
+		else {
+			ImGui::Text(std::to_string(PlayLayer::get()->getCurrentPercent()).c_str());
+		}
+		ImGui::Text("ID Level");
+		ImGui::Text("--------");
+		ImGui::Text(std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str());
+		ImGui::Text("Level Name");
+		ImGui::Text("----------");
+		ImGui::Text(GJBaseGameLayer::get()->m_level->m_levelName.c_str());
+		ImGui::Text("Attempts");
+		ImGui::Text("--------");
+		ImGui::Text(std::to_string(GJBaseGameLayer::get()->m_level->m_attempts).c_str());
 		ImGui::Text("gonna add more (i suck at adding things)");
 		ImGui::End();
 	}
-	//if (LevelSearchLayer::) {
-		ImGui::Begin("Song Request time!");
-		ImGui::Text("Lucas11 - ");
-		ImGui::End();
-	//}
+	ImGui::Begin("Song Request time! (dosent work)");
+	ImGui::End();
+	ImGui::Begin("Credits");
+	ImGui::Text("Created by Lucas11");
+	ImGui::Text("Twitch code by Alphalaneous.");
+	ImGui::Text("Thank to all the persons that help me at #help.");
+	ImGui::Text("And you too for using this mod!");
+	ImGui::End();
 
 	
 	
@@ -82,7 +103,13 @@ $execute {
      */
     using namespace geode::prelude;
     using namespace keybinds;
-
+	auto menuTab = eclipse::MenuTab::find("Lucas11Settings"); 
+	auto menuTab2 = eclipse::MenuTab::find("Lucas11Settings: Info");  
+    menuTab.addLabel("Hello world.");
+    menuTab.addLabel("Read the README for using this mod.");
+    menuTab.addButton("Open Geode settings.", []() {
+    geode::openSettingsPopup(Mod::get());
+    });
     BindManager::get()->registerBindable({
         "open-imgui"_spr, /* Keybind ID */
         "Open Interface", /* Keybind name */
@@ -92,14 +119,26 @@ $execute {
     });
     new EventListener([=](InvokeBindEvent* event) {
         if (event->isDown()) {
-			ImGuiCocos::get().toggle();
+			auto enabled = Mod::get()->getSettingValue<bool>("enable-eclipse");
+			if (enabled = true) {
+				ImGuiCocos::get().toggle();
+			}
 			if (!Mod::get()->setSavedValue("shown-upload-guidelines", true)) {
-    			FLAlertLayer::create(
-        			"Lucas11",
-        			"Hello! Please read the description of the mod.",
-        			"OK!"
-    			)->show();
-			
+			EventData data = {
+			false,
+			2,
+			6,
+			1,
+    		EventType::NA, // type of notification
+    		"Hi!", // notification title
+    		"sliderthumbsel.png", // sprite (MUST BE VALID OR WILL CRASH!)
+    		"Please read the description before using this mod. Bye!", // level name
+    		"Lucas11", // level creator
+			0,
+			false,	
+			false,	
+		};
+		GDUtils::Events::RateEvent::emit(data);
 		geode::openInfoPopup(Mod::get());
 	}
 		}
@@ -178,28 +217,26 @@ class $modify(MyMenuLayer, MenuLayer) {
 	*/
 	void onMyButton(CCObject*) {
 		if (!Mod::get()->setSavedValue("shown-upload-guidelines", true)) {
-    		FLAlertLayer::create(
-        		"Lucas11",
-        		"Hello! Please read the description of the mod.",
-        		"OK!"
-    	)->show();
-		geode::openInfoPopup(Mod::get());
-	}
-		ImGuiCocos::get().toggle();
 		EventData data = {
-			true,
+			false,
 			2,
 			6,
 			1,
-    		EventType::smallChest, // type of notification
-    		"hello world", // notification title
-    		"GJ_editBtn_001.png", // sprite (MUST BE VALID OR WILL CRASH!)
-    		"hi by mod", // level name
-    		"by lucas11", // level creator
+    		EventType::NA, // type of notification
+    		"Hi!", // notification title
+    		"sliderthumbsel.png", // sprite (MUST BE VALID OR WILL CRASH!)
+    		"Please read the description before using this mod. Bye!", // level name
+    		"Lucas11", // level creator
 			0,
 			false,	
 			false,	
 		};
 		GDUtils::Events::RateEvent::emit(data);
+		geode::openInfoPopup(Mod::get());
+	}
+		auto enabled = Mod::get()->getSettingValue<bool>("enable-eclipse");
+		if (enabled = true) {
+			ImGuiCocos::get().toggle();
+		}
 	}
 };
