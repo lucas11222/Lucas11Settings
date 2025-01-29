@@ -27,7 +27,7 @@ void setup() {
 	
     auto& io = ImGui::GetIO();
     auto fontPath = geode::Mod::get()->getResourcesDir() / "ProggyClean.ttf";
-	auto fontPath2 = geode::Mod::get()->getResourcesDir() / "Roboto-Regular.ttf";
+	//auto fontPath2 = geode::Mod::get()->getResourcesDir() / "Roboto-Regular.ttf";
     io.Fonts->AddFontFromFileTTF(fontPath.string().c_str(), 20.5f);
 	// auto font2 = io.Fonts->AddFontFromFileTTF(fontPath2.string().c_str(), 25.0f);
 }
