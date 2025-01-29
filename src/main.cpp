@@ -37,7 +37,10 @@ void draw() {
      * This function should be used for drawing ImGui widgets.
      * You can put any ImGui code here, and it will be rendered on the screen.
      */
-
+	auto completed = PlayLayer::PlayLayer::get()->m_hasCompletedLevel;
+	auto percent = std::to_string(PlayLayer::get()->getCurrentPercent()).c_str();
+	auto levelID = std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str();
+	auto levelname = GJBaseGameLayer::get()->m_level->m_levelName.c_str();
     ImGui::Begin("Lucas11Settings");
     ImGui::Text("%s","Hello world.");
     ImGui::Text("%s","Read the README for using this mod.");
@@ -56,26 +59,26 @@ void draw() {
      	ImGui::Begin("Info");
 		ImGui::Text("%s","Percent");
 		ImGui::Text("%s","-------");
-		if (PlayLayer::PlayLayer::get()->m_hasCompletedLevel == true) {
+		if (completed == true) {
 			ImGui::Text("%s","GG! 100%");
 		}
 		else {
-			ImGui::Text("%s",std::to_string(PlayLayer::get()->getCurrentPercent()).c_str());
+			ImGui::Text("%s",percent);
 		}
 		ImGui::Text("%s","ID Level");
 		ImGui::Text("%s","--------");
-		ImGui::Text("%s",std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str());
+		ImGui::Text("%s",levelID);
 		ImGui::Text("%s","Level Name");
 		ImGui::Text("%s","----------");
-		ImGui::Text("%s",GJBaseGameLayer::get()->m_level->m_levelName.c_str());
+		ImGui::Text("%s",);
 		ImGui::Text("%s","Attempts");
 		ImGui::Text("%s","--------");
-		ImGui::Text("%s",std::to_string(GJBaseGameLayer::get()->m_level->m_attempts).c_str());
+		ImGui::Text("%s",levelname);
 		ImGui::Text("%s","gonna add more (i suck at adding things)");
 		ImGui::End();
 	}
-	ImGui::Begin("Song Request time! (dosent work)");
-	ImGui::End();
+	//ImGui::Begin("Song Request time! (dosent work)");
+	//ImGui::End();
 	ImGui::Begin("Credits");
 	ImGui::Text("%s","Created by Lucas11");
 	ImGui::Text("%s","Twitch code by Alphalaneous.");
