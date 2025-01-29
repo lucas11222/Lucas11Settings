@@ -1,5 +1,5 @@
 # Lucas11Settings
-This is where she makes a mod.
+hi
 
 <img src="logo.png" width="640" alt="the mod's logo" />
 
