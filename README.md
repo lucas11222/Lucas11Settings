@@ -1,7 +1,7 @@
 # Lucas11Settings
 This is where she makes a mod.
 
-<img src="logo.png" width="150" alt="the mod's logo" />
+<img src="logo.png" width="640" alt="the mod's logo" />
 
 So this is my fist Geode mod. I add things that i like and also add features that you wanna. idk what to put here
 - Made by Lucas11
