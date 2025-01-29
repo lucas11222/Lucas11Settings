@@ -13,7 +13,10 @@
 	"description": "This is for learning and adding features that i wanna in gd.",
 	"tags": ["content", "offline"],
 	"dependencies": {
-  		"gdutilsdevs.gdutils": ">=1.4.0-beta.6",
+  		"gdutilsdevs.gdutils": {
+			"version": ">=1.4.0-beta.6",
+			"importance": "suggested"
+		},
 		"geode.custom-keybinds": ">=v1.10.2",
 		"eclipse.eclipse-menu": {
 			"version": "1.0.0-beta.4",
