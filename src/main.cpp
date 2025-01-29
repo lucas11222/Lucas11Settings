@@ -41,6 +41,7 @@ void draw() {
 	auto percent = std::to_string(PlayLayer::get()->getCurrentPercent()).c_str();
 	auto levelID = std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str();
 	auto levelname = GJBaseGameLayer::get()->m_level->m_levelName.c_str();
+	auto attemps = std::to_string(GJBaseGameLayer::get()->m_level->m_attempts).c_str();
     ImGui::Begin("Lucas11Settings");
     ImGui::Text("%s","Hello world.");
     ImGui::Text("%s","Read the README for using this mod.");
@@ -70,10 +71,10 @@ void draw() {
 		ImGui::Text("%s",levelID);
 		ImGui::Text("%s","Level Name");
 		ImGui::Text("%s","----------");
-		ImGui::Text("%s",);
+		ImGui::Text("%s",levelname);
 		ImGui::Text("%s","Attempts");
 		ImGui::Text("%s","--------");
-		ImGui::Text("%s",levelname);
+		ImGui::Text("%s",attemps);
 		ImGui::Text("%s","gonna add more (i suck at adding things)");
 		ImGui::End();
 	}
