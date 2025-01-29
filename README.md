@@ -3,23 +3,14 @@ This is where she makes a mod.
 
 <img src="logo.png" width="150" alt="the mod's logo" />
 
-*Update logo.png to change your mod's icon (please)*
-So this is my fist Geode mod. For now therse not much to do but im gonna change this when i fully relese this.
+So this is my fist Geode mod. I add things that i like and also add features that you wanna. idk what to put here
+- Made by Lucas11
+- Thank you too all of you!
 
-# -- geode default read me:
-## Getting started
-We recommend heading over to [the getting started section on our docs](https://docs.geode-sdk.org/getting-started/) for useful info on what to do next.
-
-## Build instructions
-For more info, see [our docs](https://docs.geode-sdk.org/getting-started/create-mod#build)
-```sh
-# Assuming you have the Geode CLI set up already
-geode build
-```
-
-# Resources
-* [Geode SDK Documentation](https://docs.geode-sdk.org/)
-* [Geode SDK Source Code](https://github.com/geode-sdk/geode/)
-* [Geode CLI](https://github.com/geode-sdk/cli)
-* [Bindings](https://github.com/geode-sdk/bindings/)
-* [Dev Tools](https://github.com/geode-sdk/DevTools)
+# HOW TO USE
+## Main menu
+Press the L key or the button at the start to open the menu.
+Move all the windows whatever you want.
+And you are ready!
+## Alternative: Eclipse Menu (BETA)
+Just open the eclipse menu and therse it is.
