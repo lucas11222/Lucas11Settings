@@ -19,6 +19,7 @@
 #include <eclipse.eclipse-menu/include/components.hpp>
 #include <Geode/binding/GameLevelManager.hpp>
 #include <Geode/binding/FMODAudioEngine.hpp> // sound engine
+#include "SpotifyMedia.cpp"
 using namespace geode::prelude;
 void setup() {
     /**
@@ -38,7 +39,7 @@ void draw() {
      * This function should be used for drawing ImGui widgets.
      * You can put any ImGui code here, and it will be rendered on the screen.
      */
-
+	float volume = 100;
     ImGui::Begin("Lucas11Settings");
     ImGui::Text("%s","Hello world!");
     if (ImGui::Button("Close")) {
@@ -76,6 +77,18 @@ void draw() {
 		ImGui::End();
 	}
 	ImGui::Begin("Song Request time! (dosent work)");
+	ImGui::End();
+	ImGui::Begin("Sound Control");
+	if (ImGui::InputFloat("Change Volume", volume)) {
+		std::wstring targetExeName = Mod::get()->template getSettingValue<std::filesystem::path>("spotifyApp").filename().wstring();
+    	DWORD processId = GetProcessIdByName(targetExeName);
+    	if (processId) {
+        	ChangeAudioSessionByProcessId(processId, volume);
+    	}
+	}
+	if (ImGui::Button("Mute")) {
+		toggleSpotifyMute();
+	}
 	ImGui::End();
 	ImGui::Begin("Credits");
 	ImGui::Text("%s","Created by Lucas11");
