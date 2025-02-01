@@ -18,6 +18,7 @@
 #include <eclipse.eclipse-menu/include/eclipse.hpp>
 #include <eclipse.eclipse-menu/include/components.hpp>
 #include <Geode/binding/GameLevelManager.hpp>
+#include <Geode/binding/FMODAudioEngine.hpp> // sound engine
 using namespace geode::prelude;
 void setup() {
     /**
@@ -37,18 +38,14 @@ void draw() {
      * This function should be used for drawing ImGui widgets.
      * You can put any ImGui code here, and it will be rendered on the screen.
      */
-	auto completed = PlayLayer::PlayLayer::get()->m_hasCompletedLevel;
-	auto percent = std::to_string(PlayLayer::get()->getCurrentPercent()).c_str();
-	auto levelID = std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str();
-	auto levelname = GJBaseGameLayer::get()->m_level->m_levelName.c_str();
-	auto attemps = std::to_string(GJBaseGameLayer::get()->m_level->m_attempts).c_str();
+
     ImGui::Begin("Lucas11Settings");
-    ImGui::Text("%s","Hello world.");
-    ImGui::Text("%s","Read the README for using this mod.");
+    ImGui::Text("%s","Hello world!");
     if (ImGui::Button("Close")) {
         /* This will hide our ImGui interface. */
         ImGuiCocos::get().toggle();
     }
+	ImGui::SameLine();
 	if (ImGui::Button("Open Geode settings.")) {
         /* This will hide our ImGui interface. */
         ImGuiCocos::get().toggle();
@@ -60,29 +57,29 @@ void draw() {
      	ImGui::Begin("Info");
 		ImGui::Text("%s","Percent");
 		ImGui::Text("%s","-------");
-		if (completed == true) {
-			ImGui::Text("%s","GG! 100%");
+			if (PlayLayer::PlayLayer::get()->m_hasCompletedLevel == true) {
+				ImGui::Text("%s","GG! 100%");
 		}
 		else {
-			ImGui::Text("%s",percent);
+			ImGui::Text("%s",std::to_string(PlayLayer::get()->getCurrentPercent()).c_str());
 		}
 		ImGui::Text("%s","ID Level");
 		ImGui::Text("%s","--------");
-		ImGui::Text("%s",levelID);
+		ImGui::Text("%s",std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str());
 		ImGui::Text("%s","Level Name");
 		ImGui::Text("%s","----------");
-		ImGui::Text("%s",levelname);
+		ImGui::Text("%s",GJBaseGameLayer::get()->m_level->m_levelName.c_str());
 		ImGui::Text("%s","Attempts");
 		ImGui::Text("%s","--------");
-		ImGui::Text("%s",attemps);
+		ImGui::Text("%s",std::to_string(GJBaseGameLayer::get()->m_level->m_attempts).c_str());
 		ImGui::Text("%s","gonna add more (i suck at adding things)");
 		ImGui::End();
 	}
-	//ImGui::Begin("Song Request time! (dosent work)");
-	//ImGui::End();
+	ImGui::Begin("Song Request time! (dosent work)");
+	ImGui::End();
 	ImGui::Begin("Credits");
 	ImGui::Text("%s","Created by Lucas11");
-	ImGui::Text("%s","Twitch code by Alphalaneous.");
+	ImGui::Text("%s","Spotify code by Fire (check GDUtills!)");
 	ImGui::Text("%s","Thank to all the persons that help me at #help.");
 	ImGui::Text("%s","And you too for using this mod!");
 	ImGui::End();
@@ -90,6 +87,7 @@ void draw() {
 	
 	
 }
+
 
 $on_mod(Loaded) {
     ImGuiCocos::get()
@@ -105,14 +103,13 @@ $execute {
     /**
      * Bringing some namespaces into scope for easier access to classes and functions.
      */
-    using namespace geode::prelude;
-    using namespace keybinds;
-	auto menuTab = eclipse::MenuTab::find("Lucas11Settings"); 
-	auto menuTab2 = eclipse::MenuTab::find("Lucas11Settings: Info");  
+	using namespace geode::prelude;
+	using namespace keybinds;
+    auto menuTab = eclipse::MenuTab::find("Lucas11Settings");
     menuTab.addLabel("Hello world.");
     menuTab.addLabel("Read the README for using this mod.");
     menuTab.addButton("Open Geode settings.", []() {
-    geode::openSettingsPopup(Mod::get());
+        geode::openSettingsPopup(Mod::get());
     });
     BindManager::get()->registerBindable({
         "open-imgui"_spr, /* Keybind ID */
@@ -123,10 +120,21 @@ $execute {
     });
     new EventListener([=](InvokeBindEvent* event) {
         if (event->isDown()) {
-			auto enabled = Mod::get()->getSettingValue<bool>("enable-eclipse");
-			if (enabled == true) {
-				ImGuiCocos::get().toggle();
+			auto aolsounds = Mod::get()->getSettingValue<bool>("aol-sounds");
+			auto portal2sounds = Mod::get()->getSettingValue<bool>("torret-portal-sounds");
+			//auto customsound = Mod::get()->getSettingValue<std::filesystem::path>("custom-sound-file");
+			//auto customsoundenabled = Mod::get()->getSettingValue<bool>("customs-sounds");
+			if (aolsounds == true) {
+            	FMODAudioEngine::sharedEngine()->playEffect("open_menu-aol.ogg"_spr);
 			}
+			if (portal2sounds == true) {
+				FMODAudioEngine::sharedEngine()->playEffect("open_portal_2.ogg"_spr);
+			}
+			//if (customsoundenabled == true) {
+			//	FMODAudioEngine::sharedEngine()->playEffect(customsound);
+			//}
+			ImGuiCocos::get().toggle();
+			//FMODAudioEngine::get()->playEffect(geode::Mod::get()->getResourcesDir() / "open_menu.mp3");
 			if (!Mod::get()->setSavedValue("shown-upload-guidelines", true)) {
 			EventData data = {
 			false,
@@ -148,7 +156,7 @@ $execute {
 		}
         return ListenerResult::Propagate;
     }, InvokeBindFilter(nullptr, "open-imgui"_spr));
-}
+};
 #include <Geode/modify/MenuLayer.hpp>
 class $modify(MyMenuLayer, MenuLayer) {
 	/**
@@ -238,9 +246,15 @@ class $modify(MyMenuLayer, MenuLayer) {
 		GDUtils::Events::RateEvent::emit(data);
 		geode::openInfoPopup(Mod::get());
 	}
-		auto enabled = Mod::get()->getSettingValue<bool>("enable-eclipse");
-		if (enabled == true) {
-			ImGuiCocos::get().toggle();
-		}
+	auto aolsounds = Mod::get()->getSettingValue<bool>("aol-sounds");
+	auto portal2sounds = Mod::get()->getSettingValue<bool>("torret-portal-sounds");
+	if (aolsounds == true) {
+        FMODAudioEngine::sharedEngine()->playEffect("open_menu-aol.ogg"_spr);
+	}
+	if (portal2sounds == true) {
+		FMODAudioEngine::sharedEngine()->playEffect("open_portal_2.ogg"_spr);
+	}
+	ImGuiCocos::get().toggle();
+
 	}
 };

@@ -8,7 +8,7 @@
 	},
 	"id": "lucas11.lucas11settings",
 	"name": "Lucas11Settings",
-	"version": "v1.0.1",
+	"version": "v1.0.2",
 	"developer": "Lucas11",
 	"description": "This is for learning and adding features that i wanna in gd.",
 	"tags": ["content", "offline"],
@@ -21,7 +21,7 @@
 		"eclipse.eclipse-menu": {
 			"version": "1.0.0-beta.4",
 			"importance": "suggested"
-	    }
+	    }	
  	},
 	
 	"settings": {
@@ -33,12 +33,57 @@
 				"type": "bool",
 				"name": "Disable ui.",
 				"default": false
-			}
+			},
+			"pov-image": {
+				"type": "file",
+    			"name": "POV Image",
+				"default": "Put a image in here for the POV Image",
+    			"control": {
+        		"dialog": "open"
+					
+    }
+
+
+},
+			"sound-open": {
+				"type": "title",
+				"name": "Sounds"
+				},
+			"aol-sounds": {
+				"type": "bool",
+				"default": false,
+				"description": "AOL Sounds (you got mailed sounds)"
+			},
+			"torret-portal-sounds": {
+				"type": "bool",
+				"default": false,
+				"description": "Portal 2 Torret sounds."
+			},
+			"customs-sounds": {
+				"type": "bool",
+				"default": false,
+				"description": "Customs sounds."
+			},
+			"custom-sound-file": {
+				"type": "file",
+    			"name": "Custom sound ",
+				"default": "Select a mp3 or ogg (Recomended .ogg)",
+    			"control": {
+        		"dialog": "open",
+				"filters": [
+					{
+						"files": ["*.ogg", "*.mp3"],
+						"description": "Sound File"
+					}
+				]
+    		}
+		}
+
 	},
 	"resources": {
 		"files": [
 			"resources/*.ttf",
-			"resources/*.jpg"
+			"resources/*.ogg"
 		]
 	}
 

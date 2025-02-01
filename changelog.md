@@ -1,5 +1,4 @@
-# FIRST ALPHA!!!
-## 1.0 1st Alpha 
-1. Added info
-2. Added credits
-3. And add Eclipse funcionality
+# Beta
+## 1.0 BETA
+1. Fixed all the poblems in the review
+2. And add custom sounds and trying to add Spotify Intregation (DOSENT WORK)
