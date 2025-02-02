@@ -19,8 +19,9 @@
 #include <eclipse.eclipse-menu/include/components.hpp>
 #include <Geode/binding/GameLevelManager.hpp>
 #include <Geode/binding/FMODAudioEngine.hpp> // sound engine
-#include "SpotifyMedia.cpp"
+#include "SpotifyHeader.hpp"
 using namespace geode::prelude;
+using namespace SpotifyHeader;
 void setup() {
     /**
      * This function should be used for things like setting up ImGui style, loading fonts, etc.
@@ -79,11 +80,11 @@ void draw() {
 	ImGui::Begin("Song Request time! (dosent work)");
 	ImGui::End();
 	ImGui::Begin("Sound Control");
-	if (ImGui::InputFloat("Change Volume", volume)) {
+	if (("Change Volume", volume)) {
 		std::wstring targetExeName = Mod::get()->template getSettingValue<std::filesystem::path>("spotifyApp").filename().wstring();
     	DWORD processId = GetProcessIdByName(targetExeName);
     	if (processId) {
-        	ChangeAudioSessionByProcessId(processId, volume);
+       	ChangeAudioSessionByProcessId(processId, volume);
     	}
 	}
 	if (ImGui::Button("Mute")) {

@@ -3,6 +3,7 @@ bool is_muted = false;
 #include <Geode/modify/EditorUI.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/Geode.hpp>
+#include "SpotifyHeader.hpp"
 #ifdef GEODE_IS_WINDOWS
 #include <commdlg.h>
 #include <filesystem>
