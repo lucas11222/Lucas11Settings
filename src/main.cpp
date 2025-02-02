@@ -19,9 +19,9 @@
 #include <eclipse.eclipse-menu/include/components.hpp>
 #include <Geode/binding/GameLevelManager.hpp>
 #include <Geode/binding/FMODAudioEngine.hpp> // sound engine
-#include "SpotifyHeader.hpp"
+#include "SpotifyHeader.h" // Contents of add.h copied here
+#include <iostream>
 using namespace geode::prelude;
-using namespace SpotifyHeader;
 void setup() {
     /**
      * This function should be used for things like setting up ImGui style, loading fonts, etc.
@@ -92,7 +92,7 @@ void draw() {
 	}
 	ImGui::End();
 	ImGui::Begin("Credits");
-	ImGui::Text("%s","Created by Lucas11");
+	ImGui::Text("%s","Created by Lucas11.");
 	ImGui::Text("%s","Spotify code by Fire (check GDUtills!)");
 	ImGui::Text("%s","Thank to all the persons that help me at #help.");
 	ImGui::Text("%s","And you too for using this mod!");
@@ -120,11 +120,16 @@ $execute {
 	using namespace geode::prelude;
 	using namespace keybinds;
     auto menuTab = eclipse::MenuTab::find("Lucas11Settings");
+	auto menuTab2 = eclipse::MenuTab::find("Lucas11Settings: Credits");
     menuTab.addLabel("Hello world.");
     menuTab.addLabel("Read the README for using this mod.");
     menuTab.addButton("Open Geode settings.", []() {
         geode::openSettingsPopup(Mod::get());
-    });
+    });	
+	menuTab2.addLabel("Created by Lucas11.");
+	menuTab2.addLabel("Spotify code by Fire (check GDUtills!)");
+	menuTab2.addLabel("Thank to all the persons that help me at #help.");
+	menuTab2.addLabel("And you too for using this mod!");
     BindManager::get()->registerBindable({
         "open-imgui"_spr, /* Keybind ID */
         "Open Interface", /* Keybind name */
