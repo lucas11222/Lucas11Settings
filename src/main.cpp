@@ -65,14 +65,14 @@ void draw() {
 		else {
 			ImGui::Text("%s",std::to_string(PlayLayer::get()->getCurrentPercent()).c_str());
 		}
-		ImGui::Text("%s","ID Level");
-		ImGui::Text("%s","--------");
+		ImGui::Text("%s","ID Level: ");
+		ImGui::SameLine();
 		ImGui::Text("%s",std::to_string(GJBaseGameLayer::get()->m_level->m_levelID).c_str());
-		ImGui::Text("%s","Level Name");
-		ImGui::Text("%s","----------");
+		ImGui::Text("%s","Level Name: ");
+		ImGui::SameLine();
 		ImGui::Text("%s",GJBaseGameLayer::get()->m_level->m_levelName.c_str());
-		ImGui::Text("%s","Attempts");
-		ImGui::Text("%s","--------");
+		ImGui::Text("%s","Attempts: ");
+		ImGui::SameLine();
 		ImGui::Text("%s",std::to_string(GJBaseGameLayer::get()->m_level->m_attempts).c_str());
 		ImGui::Text("%s","gonna add more (i suck at adding things)");
 		ImGui::End();
