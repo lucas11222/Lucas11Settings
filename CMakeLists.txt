@@ -10,7 +10,6 @@ project(Lucas11Settings VERSION 1.0.0)
 add_library(${PROJECT_NAME} SHARED
     src/main.cpp
     src/SpotifyMedia.cpp
-    src/SpotifyHeader.h
     # src/eclipse.cpp
     # Add any extra C++ source files here
 )

@@ -1,92 +1,134 @@
 {
-	"geode": "4.2.0",
-	"gd": {
-		"win": "2.2074",
- 		"android": "2.2074",
-		"mac": "2.2074",
-		"ios": "2.2074"
-	},
-	"id": "lucas11.lucas11settings",
-	"name": "Lucas11Settings",
-	"version": "v1.0.2",
-	"developer": "Lucas11",
-	"description": "This is for learning and adding features that i wanna in gd.",
-	"tags": ["content", "offline"],
-	"dependencies": {
-  		"gdutilsdevs.gdutils": {
-			"version": ">=1.4.0-beta.6",
-			"importance": "suggested"
-		},
-		"geode.custom-keybinds": ">=v1.10.2",
-		"eclipse.eclipse-menu": {
-			"version": "1.0.0-beta.4",
-			"importance": "suggested"
-	    }	
- 	},
-	
-	"settings": {
-			"title-ui": {
-				"type": "title",
-				"name": "UI Settings"
-			},
-			"enable-eclipse": {
-				"type": "bool",
-				"name": "Disable ui.",
-				"default": false
-			},
-			"pov-image": {
-				"type": "file",
-    			"name": "POV Image",
-				"default": "Put a image in here for the POV Image",
-    			"control": {
-        		"dialog": "open"
-					
+  "geode": "4.2.0",
+  "gd": {
+    "win": "2.2074",
+    "android": "2.2074",
+    "mac": "2.2074",
+    "ios": "2.2074"
+  },
+  "id": "lucas11.lucas11settings",
+  "name": "Lucas11Settings",
+  "version": "v1.0.2",
+  "developer": "Lucas11",
+  "description": "This is for learning and adding features that i wanna in gd.",
+  "tags": ["content", "offline"],
+  "dependencies": {
+    "gdutilsdevs.gdutils": {
+      "version": ">=1.4.0-beta.6",
+      "importance": "suggested"
+    },
+    "geode.custom-keybinds": ">=v1.10.2",
+    "eclipse.eclipse-menu": {
+      "version": "1.0.0-beta.4",
+      "importance": "suggested"
     }
+  },
 
+  "settings": {
+    "title-ui": {
+      "type": "title",
+      "name": "UI Settings"
+    },
+    "enable-eclipse": {
+      "type": "bool",
+      "name": "Disable ui.",
+      "default": false
+    },
+    "pov-image": {
+      "type": "file",
+      "name": "POV Image",
+      "default": "Put a image in here for the POV Image",
+      "control": {
+        "dialog": "open"
+      }
+    },
+    "spotifyApp": {
+      "type": "file",
+      "name": "Spotfy App",
+      "description": "This will decide what application should be auto-muted.",
+      "default": {
+        "win": "Spotify.exe",
+        "mac": "Spotify.app"
+      },
+      "platforms": ["win", "mac"],
+      "control": {
+        "dialog": "open",
+        "filters": [
+          {
+            "files": ["*.exe", "*.app", "*.*"],
+            "description": "Executable programs"
+          }
+        ]
+      }
+    },
+    "image_width": {
+      "type": "int",
+      "name": "Image width.",
+      "default": 256,
+      "min": 0,
+      "max": 4000,
+      "controls": {
+        "arrows": true,
+        "arrow-step": 1,
+        "big-arrows": false,
+        "big-arrow-step": 5,
+        "slider": true,
+        "slider-step": 1,
+        "input": false
+      }
+    },
+    "image_height": {
+      "type": "int",
+      "name": "Image height.",
+      "default": 256,
+      "min": 0,
+      "max": 4000,
+      "controls": {
+        "arrows": true,
+        "arrow-step": 1,
+        "big-arrows": false,
+        "big-arrow-step": 5,
+        "slider": true,
+        "slider-step": 1,
+        "input": false
+      }
+    },
 
-},
-			"sound-open": {
-				"type": "title",
-				"name": "Sounds"
-				},
-			"aol-sounds": {
-				"type": "bool",
-				"default": false,
-				"description": "AOL Sounds (you got mailed sounds)"
-			},
-			"torret-portal-sounds": {
-				"type": "bool",
-				"default": false,
-				"description": "Portal 2 Torret sounds."
-			},
-			"customs-sounds": {
-				"type": "bool",
-				"default": false,
-				"description": "Customs sounds."
-			},
-			"custom-sound-file": {
-				"type": "file",
-    			"name": "Custom sound ",
-				"default": "Select a mp3 or ogg (Recomended .ogg)",
-    			"control": {
-        		"dialog": "open",
-				"filters": [
-					{
-						"files": ["*.ogg", "*.mp3"],
-						"description": "Sound File"
-					}
-				]
-    		}
-		}
-
-	},
-	"resources": {
-		"files": [
-			"resources/*.ttf",
-			"resources/*.ogg"
-		]
-	}
-
-		
-	}
-
+    "sound-open": {
+      "type": "title",
+      "name": "Sounds"
+    },
+    "aol-sounds": {
+      "type": "bool",
+      "default": false,
+      "description": "AOL Sounds (you got mailed sounds)"
+    },
+    "torret-portal-sounds": {
+      "type": "bool",
+      "default": false,
+      "description": "Portal 2 Torret sounds."
+    },
+    "customs-sounds": {
+      "type": "bool",
+      "default": false,
+      "description": "Customs sounds."
+    },
+    "custom-sound-file": {
+      "type": "file",
+      "name": "Custom sound ",
+      "default": "Select a mp3 or ogg (Recomended .ogg)",
+      "control": {
+        "dialog": "open",
+        "filters": [
+          {
+            "files": ["*.ogg", "*.mp3"],
+            "description": "Sound File"
+          }
+        ]
+      }
+    }
+  },
+  "resources": {
+    "files": ["resources/*.ttf", "resources/*.ogg"]
+  }
+}
