@@ -137,7 +137,7 @@ void draw()
 	ImGui::Text("volume slider is buged please dont use it");
 	if ((ImGui::SliderFloat("Volume", &volume, 0.0f, 100.0f)))
 	{
-		toggleSpotifyVolume(automatic, volume);
+		toggleSpotifyVolume(volume);
 	}
 	if (ImGui::Button("Mute"))
 	{
@@ -145,7 +145,7 @@ void draw()
 	}
 	if (ImGui::Button("a"))
 	{
-		toggleSpotifyVolume(automatic, 1.0f);
+		toggleSpotifyVolume(1.0f);
 	}
 	ImGui::End();
 	ImGui::Begin("Credits");
@@ -177,6 +177,7 @@ $execute
 	using namespace keybinds;
 	auto menuTab = eclipse::MenuTab::find("Lucas11Settings");
 	auto menuTab2 = eclipse::MenuTab::find("Lucas11Settings: Credits");
+	auto menuTab3 = eclipse::MenuTab::find("Spotify");
 	menuTab.addLabel("Hello world!");
 	menuTab.addButton("Open Geode settings.", []()
 					  { geode::openSettingsPopup(Mod::get()); });
@@ -184,6 +185,12 @@ $execute
 	menuTab2.addLabel("Spotify code by Fire (check GDUtills!)");
 	menuTab2.addLabel("Thank to all the persons that help me at #help.");
 	menuTab2.addLabel("And you too for using this mod!");
+	menuTab3.addInputFloat("Volume", "Volume", [](float volume = 100)
+						  { toggleSpotifyVolume(volume); });
+	menuTab3.addToggle("mute", "Mute", [](bool muted = false, bool automatic = false)
+					   {
+						   toggleSpotifyMute(automatic, muted);
+					   }) ;
 	BindManager::get()
 		->registerBindable({
 			"open-imgui"_spr,					  /* Keybind ID */
